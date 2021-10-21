@@ -5,7 +5,7 @@ An infinite slider built with React
 ## Example
 ```javascript
 import React from 'react';
-import Slider from 'infinite-react-slider';
+import Slider from '@pavelcorp/infinite-react-slider';
 
 const Component = () => {
   return (
