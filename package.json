@@ -1,5 +1,5 @@
 {
-  "name": "infinite-react-slider",
+  "name": "@pavelcorp/infinite-react-slider",
   "author": "Pavel",
   "version": "0.1.0",
   "main": "dist/index.js",
