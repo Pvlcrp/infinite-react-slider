@@ -3,6 +3,7 @@ import React from "react";
 // Defaults
 const TOTAL_TIME = 10000;
 const OFFSET_TOP = 0;
+const OFFSET_BOTTOM = 0;
 const DEFAULT_DUPLICATES = 2;
 const FPS = 1000 / 60;
 
@@ -33,7 +34,16 @@ const getSlidesData = (slider, initialLength = 0) => {
 }
 
 
-const Slider = ({ children, totalTime = TOTAL_TIME, offsetTop = OFFSET_TOP, fps = FPS, ...props }) => {
+const Slider = (
+  {
+    children,
+    totalTime = TOTAL_TIME,
+    offsetTop = OFFSET_TOP,
+    offsetBottom = OFFSET_BOTTOM,
+    fps = FPS,
+    ...props
+  }
+) => {
   // Slider
   const ref = React.useRef();
 
@@ -144,10 +154,11 @@ const Slider = ({ children, totalTime = TOTAL_TIME, offsetTop = OFFSET_TOP, fps 
     () => {
       const slider = ref.current;
       const rect = slider.getBoundingClientRect();
-      const top = rect.top - offsetTop;
-      return top > 0;
+      const top = rect.top + rect.height - offsetTop;
+      const bottom = rect.top + offsetBottom;
+      return top > 0 && bottom < window.innerHeight;
     },
-    [offsetTop]
+    [offsetTop, offsetBottom]
   );
 
   /**
@@ -264,7 +275,7 @@ const Slider = ({ children, totalTime = TOTAL_TIME, offsetTop = OFFSET_TOP, fps 
         style={
           {
             width,
-            transform: `translateX(-${translate * sliderWidth}px)`,
+            transform: `translateX(-50%) translateX(-${translate * sliderWidth}px)`,
           }
         }
       >
